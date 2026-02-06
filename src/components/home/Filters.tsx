@@ -2,6 +2,7 @@
 
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
+import { useState, useEffect } from "react";
 import {
     Select,
     SelectContent,
@@ -18,6 +19,30 @@ interface FiltersProps {
 }
 
 export default function Filters({ search, setSearch, category, setCategory }: FiltersProps) {
+    // Fix hydration mismatch for Select component
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) {
+        return (
+            <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                <div className="relative flex-1">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                        placeholder="Search articles..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        className="pl-10"
+                    />
+                </div>
+                <div className="w-full sm:w-[200px] h-10 bg-slate-100 dark:bg-slate-800 rounded-md animate-pulse" />
+            </div>
+        );
+    }
+
     return (
         <div className="flex flex-col sm:flex-row gap-4 mb-8">
             <div className="relative flex-1">

@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { CalendarIcon, ChevronLeft, Clock } from "lucide-react";
 import Link from "next/link";
 import { Metadata } from "next";
+import Image from "next/image";
 
 interface BlogPostPageProps {
     params: Promise<{
@@ -70,28 +71,38 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </div>
             </header>
 
-            {/* Content */}
-            <main className="container mx-auto px-4 max-w-3xl py-12">
-                <div
-                    className="prose prose-lg dark:prose-invert prose-slate max-w-none 
-          prose-headings:font-bold prose-headings:tracking-tight 
-          prose-a:text-primary prose-img:rounded-xl prose-img:shadow-md"
-                    dangerouslySetInnerHTML={{ __html: blog.content }}
-                />
+            {/* Content Container */}
+            <main className="container mx-auto px-4 max-w-3xl py-8">
+                {/* Blog Image */}
+                {blog.image && (
+                    <div className="relative w-full h-[400px] mb-8 rounded-xl overflow-hidden shadow-lg bg-slate-100 dark:bg-slate-900">
+                        <Image
+                            src={blog.image}
+                            alt={blog.title}
+                            fill
+                            className="object-cover"
+                            priority
+                        />
+                    </div>
+                )}
 
                 {/* Tags */}
                 {blog.tags && blog.tags.length > 0 && (
-                    <div className="mt-12 pt-8 border-t">
-                        <h4 className="text-sm font-semibold text-muted-foreground mb-4">Tags</h4>
-                        <div className="flex flex-wrap gap-2">
-                            {blog.tags.map((tag: string) => (
-                                <Badge key={tag} variant="outline" className="text-slate-600 dark:text-slate-400">
-                                    #{tag.trim()}
-                                </Badge>
-                            ))}
-                        </div>
+                    <div className="flex flex-wrap gap-2 mb-8">
+                        {blog.tags.map((tag: string) => (
+                            <Badge key={tag} variant="secondary" className="text-sm py-1 px-3">
+                                #{tag.trim()}
+                            </Badge>
+                        ))}
                     </div>
                 )}
+
+                <div
+                    className="prose prose-lg dark:prose-invert prose-slate max-w-none 
+                    prose-headings:font-bold prose-headings:tracking-tight 
+                    prose-a:text-primary prose-img:rounded-xl prose-img:shadow-md"
+                    dangerouslySetInnerHTML={{ __html: blog.content }}
+                />
             </main>
         </article>
     );

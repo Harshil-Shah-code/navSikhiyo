@@ -3,6 +3,7 @@ import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { CalendarIcon } from "lucide-react";
+import Image from "next/image";
 
 interface BlogCardProps {
     blog: {
@@ -12,6 +13,7 @@ interface BlogCardProps {
         category?: string;
         createdAt: string;
         tags?: string[];
+        image?: string;
     };
 }
 
@@ -20,11 +22,21 @@ export default function BlogCard({ blog }: BlogCardProps) {
     const excerpt = blog.content.replace(/<[^>]+>/g, "").substring(0, 150) + "...";
 
     return (
-        <Card className="flex flex-col h-full hover:shadow-lg transition-shadow duration-300 border-slate-200 dark:border-slate-800">
+        <Card className="flex flex-col h-full hover:shadow-lg transition-shadow duration-300 border-slate-200 dark:border-slate-800 overflow-hidden">
             <CardHeader className="p-0">
-                <div className="h-48 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 w-full rounded-t-xl flex items-center justify-center text-slate-400">
-                    {/* Placeholder for cover image if we had one */}
-                    <span className="text-4xl font-bold opacity-20 select-none">NavSikhyo</span>
+                <div className="h-48 w-full relative bg-slate-100 dark:bg-slate-900">
+                    {blog.image ? (
+                        <Image
+                            src={blog.image}
+                            alt={blog.title}
+                            fill
+                            className="object-cover"
+                        />
+                    ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 flex items-center justify-center text-slate-400">
+                            <span className="text-4xl font-bold opacity-20 select-none">NavSikhyo</span>
+                        </div>
+                    )}
                 </div>
             </CardHeader>
             <CardContent className="flex-1 p-6 space-y-4">

@@ -8,11 +8,11 @@ export default function Home() {
           <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
             NavSikhyo
           </h1>
-          <nav className="hidden md:flex space-x-6 text-sm font-medium text-muted-foreground">
+          {/* <nav className="hidden md:flex space-x-6 text-sm font-medium text-muted-foreground">
             <a href="#" className="hover:text-primary transition-colors">Home</a>
             <a href="#" className="hover:text-primary transition-colors">About</a>
             <a href="#" className="hover:text-primary transition-colors">Contact</a>
-          </nav>
+          </nav> */}
         </div>
       </header>
 

@@ -27,6 +27,7 @@ export default function TipTapEditor({ content, onChange }: TipTapEditorProps) {
         onUpdate: ({ editor }) => {
             onChange(editor.getHTML());
         },
+        immediatelyRender: false,
     });
 
     // Update content if changed externally (e.g. initial load)
