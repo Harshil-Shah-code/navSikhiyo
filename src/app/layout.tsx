@@ -16,22 +16,22 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://nav-sikhiyo.vercel.app"),
   title: {
-    default: "NavSikhyo - Learn Coding, Technology & Lifestyle",
+    default: "NavSikhyo",
     template: "%s | NavSikhyo",
   },
   alternates: {
     canonical: "/",
   },
-  description: "NavSikhyo is your go-to platform for mastering coding, exploring the latest technology trends, and balancing a developer lifestyle.",
-  keywords: ["coding", "web development", "react", "next.js", "technology", "programming tutorials", "developer lifestyle"],
+  description: "NavSikhyo is a platform for exploring the latest stories, insights, and updates.",
+  keywords: ["blog", "stories", "articles", "news", "insights", "updates"],
   authors: [{ name: "NavSikhyo Team" }],
   creator: "NavSikhyo",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://nav-sikhiyo.vercel.app",
-    title: "NavSikhyo - Learn Coding, Technology & Lifestyle",
-    description: "Master coding, explore tech trends, and enhance your developer lifestyle with NavSikhyo.",
+    title: "NavSikhyo",
+    description: "Discover a wide range of insights, stories, and updates on NavSikhyo.",
     siteName: "NavSikhyo",
     images: [
       {
@@ -44,8 +44,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "NavSikhyo - Learn Coding, Technology & Lifestyle",
-    description: "Master coding, explore tech trends, and enhance your developer lifestyle with NavSikhyo.",
+    title: "NavSikhyo",
+    description: "Discover a wide range of insights, stories, and updates on NavSikhyo.",
     images: ["/og-image.jpg"],
   },
   verification: {

@@ -22,8 +22,8 @@ export default function Home() {
             Explore Our Latest Stories
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Discover insights on technology, coding, lifestyle, and design.
-            Curated specifically for the modern developer.
+            Discover a wide range of insights, stories, and updates.
+            Curated specifically for you.
           </p>
         </div>
 
