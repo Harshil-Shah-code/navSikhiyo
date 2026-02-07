@@ -21,9 +21,31 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
     if (!blog) return { title: 'Post Not Found' };
 
+    const description = blog.content.substring(0, 160).replace(/<[^>]+>/g, "");
+
     return {
-        title: `${blog.title} | NavSikhyo`,
-        description: blog.content.substring(0, 160).replace(/<[^>]+>/g, ""),
+        title: blog.title,
+        description: description,
+        openGraph: {
+            title: blog.title,
+            description: description,
+            url: `https://nav-sikhiyo.vercel.app/blog/${slug}`,
+            siteName: 'NavSikhyo',
+            images: [
+                {
+                    url: blog.image || '/og-image.jpg',
+                    width: 1200,
+                    height: 630,
+                    alt: blog.title,
+                }
+            ],
+            type: 'article',
+            publishedTime: blog.createdAt.toISOString(),
+            authors: ['NavSikhyo Team'],
+        },
+        alternates: {
+            canonical: `https://nav-sikhiyo.vercel.app/blog/${slug}`,
+        },
     };
 }
 
