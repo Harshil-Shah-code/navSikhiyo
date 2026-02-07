@@ -74,17 +74,32 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             {/* Content Container */}
             <main className="container mx-auto px-4 max-w-3xl py-8">
                 {/* Blog Image */}
-                {blog.image && (
-                    <div className="relative w-full h-[400px] mb-8 rounded-xl overflow-hidden shadow-lg bg-slate-100 dark:bg-slate-900">
-                        <Image
-                            src={blog.image}
-                            alt={blog.title}
-                            fill
-                            className="object-cover"
-                            priority
-                        />
-                    </div>
-                )}
+                {(() => {
+                    let isValidUrl = false;
+                    try {
+                        if (blog.image && (blog.image.startsWith('http') || blog.image.startsWith('/'))) {
+                            new URL(blog.image, blog.image.startsWith('/') ? 'http://localhost:3000' : undefined);
+                            isValidUrl = true;
+                        }
+                    } catch (e) {
+                        isValidUrl = false;
+                    }
+
+                    if (isValidUrl && blog.image) {
+                        return (
+                            <div className="relative w-full h-[400px] mb-8 rounded-xl overflow-hidden shadow-lg bg-slate-100 dark:bg-slate-900">
+                                <Image
+                                    src={blog.image}
+                                    alt={blog.title}
+                                    fill
+                                    className="object-cover"
+                                    priority
+                                />
+                            </div>
+                        );
+                    }
+                    return null;
+                })()}
 
                 {/* Tags */}
                 {blog.tags && blog.tags.length > 0 && (
@@ -100,7 +115,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 <div
                     className="prose prose-lg dark:prose-invert prose-slate max-w-none 
                     prose-headings:font-bold prose-headings:tracking-tight 
-                    prose-a:text-primary prose-img:rounded-xl prose-img:shadow-md"
+                    prose-a:text-primary prose-img:rounded-xl prose-img:shadow-md
+                    [&_img]:w-full [&_img]:h-auto [&_img]:my-6
+                    [&_svg]:max-w-[24px] [&_svg]:max-h-[24px] [&_svg]:inline-block"
                     dangerouslySetInnerHTML={{ __html: blog.content }}
                 />
             </main>

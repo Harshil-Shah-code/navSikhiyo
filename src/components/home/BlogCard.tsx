@@ -25,18 +25,30 @@ export default function BlogCard({ blog }: BlogCardProps) {
         <Card className="flex flex-col h-full hover:shadow-lg transition-shadow duration-300 border-slate-200 dark:border-slate-800 overflow-hidden">
             <CardHeader className="p-0">
                 <div className="h-48 w-full relative bg-slate-100 dark:bg-slate-900">
-                    {blog.image ? (
-                        <Image
-                            src={blog.image}
-                            alt={blog.title}
-                            fill
-                            className="object-cover"
-                        />
-                    ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 flex items-center justify-center text-slate-400">
-                            <span className="text-4xl font-bold opacity-20 select-none">NavSikhyo</span>
-                        </div>
-                    )}
+                    {(() => {
+                        let isValidUrl = false;
+                        try {
+                            if (blog.image && (blog.image.startsWith('http') || blog.image.startsWith('/'))) {
+                                new URL(blog.image, blog.image.startsWith('/') ? 'http://localhost:3000' : undefined);
+                                isValidUrl = true;
+                            }
+                        } catch (e) {
+                            isValidUrl = false;
+                        }
+
+                        return isValidUrl && blog.image ? (
+                            <Image
+                                src={blog.image}
+                                alt={blog.title}
+                                fill
+                                className="object-cover"
+                            />
+                        ) : (
+                            <div className="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 flex items-center justify-center text-slate-400">
+                                <span className="text-4xl font-bold opacity-20 select-none">NavSikhyo</span>
+                            </div>
+                        );
+                    })()}
                 </div>
             </CardHeader>
             <CardContent className="flex-1 p-6 space-y-4">
