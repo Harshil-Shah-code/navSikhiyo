@@ -14,6 +14,8 @@ interface BlogPostPageProps {
     }>;
 }
 
+import TextToSpeech from '@/components/TextToSpeech';
+
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
     const { slug } = await params;
     await dbConnect();
@@ -95,6 +97,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
             {/* Content Container */}
             <main className="container mx-auto px-4 max-w-3xl py-8">
+
+                <TextToSpeech title={blog.title} content={blog.content} />
+
                 {/* Blog Image */}
                 {blog.image && (
                     <div className="relative w-full h-[400px] mb-8 rounded-xl overflow-hidden shadow-lg bg-slate-100 dark:bg-slate-900">
