@@ -125,6 +125,29 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     prose-a:text-primary prose-img:rounded-xl prose-img:shadow-md"
                     dangerouslySetInnerHTML={{ __html: blog.content }}
                 />
+
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@type": "BlogPosting",
+                            headline: blog.title,
+                            image: blog.image ? [blog.image] : [],
+                            datePublished: blog.createdAt,
+                            dateModified: blog.updatedAt || blog.createdAt,
+                            author: {
+                                "@type": "Person",
+                                name: "NavSikhyo Team", // Or dynamic author if available
+                            },
+                            publisher: {
+                                "@type": "Organization",
+                                name: "NavSikhyo",
+                            },
+                            description: blog.content.substring(0, 160).replace(/<[^>]+>/g, ""),
+                        }),
+                    }}
+                />
             </main>
         </article>
     );

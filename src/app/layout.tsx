@@ -43,8 +43,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "NavSikhyo - Learn Coding, Technology & Lifestyle",
     description: "Master coding, explore tech trends, and enhance your developer lifestyle with NavSikhyo.",
-    creator: "@navsikhyo", // Placeholder, can be updated later
     images: ["/og-image.jpg"],
+  },
+  verification: {
+    google: "R-h1jpHZQHjQxUkbMg1cJzqNNWh5RVDa6biJYg9BtkI",
   },
   robots: {
     index: true,
@@ -61,6 +63,7 @@ export const metadata: Metadata = {
 
 import QueryProvider from "@/components/providers/QueryProvider";
 import { Toaster } from "@/components/ui/sonner";
+import Script from "next/script";
 
 export default function RootLayout({
   children,
@@ -72,6 +75,35 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Script
+          id="json-ld-website"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "NavSikhyo",
+              url: "https://nav-sikhiyo.vercel.app",
+              potentialAction: {
+                "@type": "SearchAction",
+                target: "https://nav-sikhiyo.vercel.app/search?q={search_term_string}",
+                "query-input": "required name=search_term_string",
+              },
+            }),
+          }}
+        />
+        <Script
+          id="json-ld-organization"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "NavSikhyo",
+              url: "https://nav-sikhiyo.vercel.app",
+            }),
+          }}
+        />
         <QueryProvider>
           {children}
           <Toaster />
