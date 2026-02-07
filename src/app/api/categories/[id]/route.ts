@@ -4,8 +4,9 @@ import Category from '@/models/Category';
 
 export async function DELETE(
     request: Request,
-    { params }: { params: { id: string } }
+    props: { params: Promise<{ id: string }> }
 ) {
+    const params = await props.params;
     try {
         await dbConnect();
         const { id } = params;
