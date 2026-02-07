@@ -48,6 +48,9 @@ export async function togglePublish(id: string, isPublished: boolean) {
 export async function createBlog(data: Partial<IBlog>) {
     await dbConnect();
 
+    console.log("createBlog data keys:", Object.keys(data));
+    if (data.image) console.log("Image data length:", data.image.length);
+
     // Ensure slug is unique
     let slug = data.slug;
     if (!slug) {
@@ -60,7 +63,14 @@ export async function createBlog(data: Partial<IBlog>) {
         slug = `${slug}-${Date.now()}`;
     }
 
-    const blog = await Blog.create({ ...data, slug });
+    if (existing) {
+        slug = `${slug}-${Date.now()}`;
+    }
+
+    const words = (data.content || "").replace(/<[^>]+>/g, "").split(/\s+/).length;
+    const readingTime = Math.ceil(words / 200);
+
+    const blog = await Blog.create({ ...data, slug, readingTime });
     revalidatePath('/admin-dashboard');
     revalidatePath('/');
     return { success: true, id: blog._id.toString() };
@@ -68,6 +78,15 @@ export async function createBlog(data: Partial<IBlog>) {
 
 export async function updateBlog(id: string, data: Partial<IBlog>) {
     await dbConnect();
+
+    console.log("updateBlog data keys:", Object.keys(data));
+    if (data.image) console.log("Image data length:", data.image.length);
+
+    if (data.content) {
+        const words = data.content.replace(/<[^>]+>/g, "").split(/\s+/).length;
+        data.readingTime = Math.ceil(words / 200);
+    }
+
     await Blog.findByIdAndUpdate(id, data);
     revalidatePath('/admin-dashboard');
     revalidatePath('/');

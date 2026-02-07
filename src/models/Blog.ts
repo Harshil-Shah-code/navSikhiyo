@@ -6,6 +6,8 @@ export interface IBlog extends Document {
     content: any; // HTML or JSON from TipTap
     category?: string;
     tags?: string[];
+    image?: string;
+    readingTime?: number;
     isPublished: boolean;
     createdAt: Date;
     updatedAt: Date;
@@ -18,6 +20,8 @@ const BlogSchema: Schema = new Schema(
         content: { type: Schema.Types.Mixed, required: true },
         category: { type: String },
         tags: { type: [String] },
+        image: { type: String },
+        readingTime: { type: Number },
         isPublished: { type: Boolean, default: false },
     },
     { timestamps: true }

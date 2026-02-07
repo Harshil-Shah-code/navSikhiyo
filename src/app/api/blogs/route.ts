@@ -30,7 +30,7 @@ export async function GET(request: Request) {
             .sort({ createdAt: -1 })
             .skip(skip)
             .limit(limit)
-            .select('title slug content category createdAt tags') // Select only necessary fields
+            .select('title slug content category createdAt tags image') // Select only necessary fields
             .lean();
 
         const total = await Blog.countDocuments(query);
