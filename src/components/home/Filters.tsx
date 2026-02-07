@@ -21,9 +21,22 @@ interface FiltersProps {
 export default function Filters({ search, setSearch, category, setCategory }: FiltersProps) {
     // Fix hydration mismatch for Select component
     const [mounted, setMounted] = useState(false);
+    const [categories, setCategories] = useState<{ _id: string; name: string }[]>([]);
 
     useEffect(() => {
         setMounted(true);
+        const fetchCategories = async () => {
+            try {
+                const res = await fetch('/api/categories');
+                if (res.ok) {
+                    const data = await res.json();
+                    setCategories(data);
+                }
+            } catch (error) {
+                console.error("Failed to fetch categories", error);
+            }
+        };
+        fetchCategories();
     }, []);
 
     if (!mounted) {
@@ -61,10 +74,11 @@ export default function Filters({ search, setSearch, category, setCategory }: Fi
                     </SelectTrigger>
                     <SelectContent>
                         <SelectItem value="all">All Categories</SelectItem>
-                        <SelectItem value="technology">Technology</SelectItem>
-                        <SelectItem value="lifestyle">Lifestyle</SelectItem>
-                        <SelectItem value="coding">Coding</SelectItem>
-                        <SelectItem value="design">Design</SelectItem>
+                        {categories.map((cat) => (
+                            <SelectItem key={cat._id} value={cat.name}>
+                                {cat.name}
+                            </SelectItem>
+                        ))}
                     </SelectContent>
                 </Select>
             </div>
