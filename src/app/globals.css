@@ -123,4 +123,8 @@
   body {
     @apply bg-background text-foreground;
   }
+  /* Fix for empty lines in editor content */
+  .prose p:empty::before {
+    content: "\00a0";
+  }
 }

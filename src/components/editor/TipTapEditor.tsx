@@ -2,8 +2,12 @@
 
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import { Table } from '@tiptap/extension-table';
+import { TableRow } from '@tiptap/extension-table-row';
+import { TableCell } from '@tiptap/extension-table-cell';
+import { TableHeader } from '@tiptap/extension-table-header';
 import { Toggle } from "@/components/ui/toggle";
-import { Bold, Italic, List, ListOrdered, Heading1, Heading2, Quote } from "lucide-react";
+import { Bold, Italic, List, ListOrdered, Heading1, Heading2, Quote, Code, Table as TableIcon } from "lucide-react";
 import { useEffect } from 'react';
 
 interface TipTapEditorProps {
@@ -17,6 +21,12 @@ export default function TipTapEditor({ content, onChange }: TipTapEditorProps) {
             StarterKit.configure({
                 heading: { levels: [1, 2] },
             }),
+            Table.configure({
+                resizable: true,
+            }),
+            TableRow,
+            TableHeader,
+            TableCell,
         ],
         content,
         editorProps: {
@@ -99,6 +109,20 @@ export default function TipTapEditor({ content, onChange }: TipTapEditorProps) {
                     onPressedChange={() => editor.chain().focus().toggleBlockquote().run()}
                 >
                     <Quote className="h-4 w-4" />
+                </Toggle>
+                <Toggle
+                    size="sm"
+                    pressed={editor.isActive('codeBlock')}
+                    onPressedChange={() => editor.chain().focus().toggleCodeBlock().run()}
+                >
+                    <Code className="h-4 w-4" />
+                </Toggle>
+                <Toggle
+                    size="sm"
+                    pressed={editor.isActive('table')}
+                    onPressedChange={() => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()}
+                >
+                    <TableIcon className="h-4 w-4" />
                 </Toggle>
             </div>
             <EditorContent editor={editor} />
