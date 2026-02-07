@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     default: "NavSikhyo - Learn Coding, Technology & Lifestyle",
     template: "%s | NavSikhyo",
   },
+  alternates: {
+    canonical: "/",
+  },
   description: "NavSikhyo is your go-to platform for mastering coding, exploring the latest technology trends, and balancing a developer lifestyle.",
   keywords: ["coding", "web development", "react", "next.js", "technology", "programming tutorials", "developer lifestyle"],
   authors: [{ name: "NavSikhyo Team" }],
