@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://nav-sikhiyo.vercel.app"),
+  metadataBase: new URL("https://navSikhiyo.vercel.app"),
   title: {
     default: "NavSikhyo",
     template: "%s | NavSikhyo",
@@ -22,8 +22,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  description: "NavSikhyo is a platform for exploring the latest stories, insights, and updates.",
-  keywords: ["blog", "stories", "articles", "news", "insights", "updates"],
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
+  },
+  description: "NavSikhyo is a platform for exploring the latest stories, insights, and updates about coding and technology.",
+  keywords: ["NavSikhyo", "Nav Sikhyo", "navsikhyo", "nav sikhyo", "blog", "stories", "articles", "news", "insights", "updates", "coding", "technology", "programming", "web development"],
   authors: [{ name: "NavSikhyo Team" }],
   creator: "NavSikhyo",
   openGraph: {
